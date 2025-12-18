@@ -2,34 +2,36 @@ name: Build LaTeX Resume
 on:
   push:
     paths:
-      - '**.tex'
+      - '**.tex'      # tex 파일이 바뀔 때만 작동
+      - 'index.html'  # html 수정할 때도 작동하도록 설정
+      - '.github/workflows/**'
 
-permissions: write-all
+permissions:
+  contents: write     # 깃허브 봇에게 쓰기 권한 부여
 
 jobs:
   build_latex:
     runs-on: ubuntu-latest
     steps:
-      - name: Set up Git repository
+      - name: 저장소 체크아웃
         uses: actions/checkout@v3
 
-      - name: Compile LaTeX document
+      - name: LaTeX 컴파일
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: main.tex  # 5단계에서 만든 파일명과 같아야 함
+          root_file: main.tex  # 파일명이 main.tex가 아니면 수정 필요
 
-      - name: Upload PDF to Release
-        uses: actions/upload-artifact@v4
-        with:
-          name: PDF
-          path: main.pdf
-
-      - name: Push PDF back to repo
+      - name: PDF 파일 저장소에 반영 (Commit & Push)
         run: |
-          git config --global user.name "GitHub Action"
+          git config --global user.name "GitHub Action Bot"
           git config --global user.email "action@github.com"
-          git fetch
-          git pull
-          git add main.pdf
-          git commit -m "Auto-compiled PDF" || echo "No changes to commit"
-          git push
+          
+          # PDF가 생성되었는지 확인 후 커밋
+          if [ -f main.pdf ]; then
+            git add main.pdf
+            git commit -m "Auto-compiled Resume PDF [skip ci]"
+            git push
+          else
+            echo "PDF generation failed."
+            exit 1
+          fi
