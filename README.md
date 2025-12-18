@@ -8,7 +8,7 @@
 개발자로서 이력서의 버전 관리와 배포 효율성을 높이기 위해 구축했습니다.
 `.tex` 소스 코드만 수정하여 Push하면, 서버가 자동으로 PDF를 생성하고 웹페이지에 반영합니다.
 
-- **Live Demo:** [https://[본인아이디].github.io](https://sf-mantis.github.io)
+- **Live Demo:** [https://sf-mantis.github.io](https://sf-mantis.github.io)
 - **Latest PDF:** [Download Resume](main.pdf)
 
 ## 🛠 Architecture & Workflow
