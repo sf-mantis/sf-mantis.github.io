@@ -30,6 +30,7 @@ jobs:
           if [ -f main.pdf ]; then
             git add main.pdf
             git commit -m "Auto-compiled Resume PDF [skip ci]"
+            git pull --rebase origin main
             git push
           else
             echo "PDF generation failed."
