@@ -36,6 +36,13 @@
             margin-bottom: 2.5rem;
             line-height: 1.6;
         }
+        /* 버튼 컨테이너 */
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
         /* 핵심: PDF 다운로드 버튼 */
         .btn-download {
             display: inline-block;
@@ -53,6 +60,23 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.3);
             background-color: #f0f0f0;
         }
+        /* About-Me 블로그 버튼 */
+        .btn-blog {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(45deg, #007cf0, #00dfd8);
+            text-decoration: none;
+            border-radius: 50px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-blog:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 124, 240, 0.4);
+            background: linear-gradient(45deg, #0090ff, #00f0e8);
+        }
         .footer {
             margin-top: 3rem;
             font-size: 0.8rem;
@@ -68,9 +92,14 @@
             문제를 해결하고 시스템을 최적화하는 개발자입니다.
         </p>
         
-        <a href="main.pdf" class="btn-download" target="_blank">
-            📄 최신 이력서 PDF 다운로드
-        </a>
+        <div class="button-group">
+            <a href="main.pdf" class="btn-download" target="_blank">
+                📄 최신 이력서 PDF 다운로드
+            </a>
+            <a href="https://ngkim.tistory.com/Pages/About-Me" class="btn-blog">
+                📝 About-Me 블로그
+            </a>
+        </div>
 
         <div class="footer">
             Built with LaTeX & GitHub Actions
