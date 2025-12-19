@@ -349,6 +349,11 @@
                 justify-content: center;
             }
 
+            .btn-download-wrapper {
+                text-align: center;
+                margin-top: 20px;
+            }
+
             .item {
                 flex-direction: column;
             }
@@ -367,7 +372,7 @@
         /* --- 인쇄 및 PDF 저장용 설정 --- */
         @media print {
         /* 인쇄 시 불필요한 요소 숨김 (PDF 다운로드 버튼 등) */
-        .btn-download {
+        .btn-download, .btn-download-wrapper {
             display: none !important;
         }
 
@@ -383,7 +388,7 @@
             max-width: none;
             margin: 0;
             padding: 0;
-            box-shadow: none; /* 그림자 제거 */
+            box-shadow: none;
             border: none;
         }
 
@@ -409,15 +414,17 @@
             <div class="header-info">
                 <div class="header-top">
                     <h1>김남근</h1>
-                    <a href="main.pdf" download class="btn-download">
-                        <i class="fa-solid fa-file-pdf"></i> 최신 이력서 PDF 다운로드
-                    </a>
                 </div>
                 <div class="contact-info">
                     <p><i class="fa-solid fa-user"></i> 1990년생 (남성)</p>
                     <p><i class="fa-solid fa-phone"></i> 010-6350-5557</p>
                     <p><i class="fa-solid fa-envelope"></i> jnk@shinsung.co.kr</p>
                     <p class="link-text"><i class="fa-solid fa-link"></i> <a href="https://ngkim.tistory.com/pages/About-Me" target="_blank">ngkim.tistory.com/pages/About-Me</a></p>
+                </div>
+                <div class="btn-download-wrapper">
+                    <a href="main.pdf" download class="btn-download">
+                        <i class="fa-solid fa-file-pdf"></i> 최신 이력서 PDF 다운로드
+                    </a>
                 </div>
             </div>
         </header>
