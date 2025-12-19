@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>김남근 - 이력서</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #222;
+            --secondary-color: #555;
+            --accent-color: #2c3e50;
+            --bg-color: #f4f6f8;
+            --white: #ffffff;
+            --border-color: #e0e0e0;
+            --tag-bg: #f0f2f5;
+            --tag-text: #555;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: var(--white);
+            padding: 60px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border-radius: 8px;
+            position: relative; /* PDF 버튼 배치를 위해 */
+        }
+
+        /* Header Section */
+        header {
+            display: flex;
+            align-items: flex-start;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .profile-img {
+            width: 130px;
+            height: 160px;
+            background-color: #eee;
+            margin-right: 40px;
+            border-radius: 6px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .header-info {
+            flex-grow: 1;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .header-info h1 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            letter-spacing: -1px;
+        }
+
+        /* PDF Download Button */
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--white);
+            color: var(--secondary-color);
+            border: 1px solid #ccc;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .btn-download:hover {
+            background-color: var(--accent-color);
+            color: var(--white);
+            border-color: var(--accent-color);
+        }
+
+        .contact-info p {
+            font-size: 0.95rem;
+            color: var(--secondary-color);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-info i {
+            width: 24px;
+            color: var(--accent-color);
+            text-align: center;
+            margin-right: 8px;
+        }
+
+        /* Summary Section (Refined) */
+        .summary {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-left: 4px solid var(--accent-color);
+            margin-bottom: 50px;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .summary h2 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        .summary-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .summary-list li {
+            font-size: 0.9rem;
+            color: #444;
+            display: flex;
+            align-items: center;
+        }
+
+        .summary-list li::before {
+            content: "\f00c"; /* FontAwesome check icon */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--accent-color);
+            margin-right: 10px;
+            font-size: 0.8rem;
+        }
+
+        /* Common Section Styles */
+        section {
+            margin-bottom: 60px;
+        }
+
+        section h2 {
+            font-size: 1.4rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        section h2 span {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #888;
+        }
+
+        /* Item Styles (Experience, Education) */
+        .item {
+            display: flex;
+            margin-bottom: 40px;
+        }
+        
+        .item:last-child {
+            margin-bottom: 0;
+        }
+
+        .date-col {
+            flex: 0 0 160px;
+            color: #777;
+            font-size: 0.9rem;
+            padding-top: 4px;
+            line-height: 1.4;
+        }
+
+        .date-duration {
+            display: block;
+            font-size: 0.8rem;
+            color: #999;
+            margin-top: 4px;
+        }
+
+        .content-col {
+            flex: 1;
+        }
+
+        .company-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 4px;
+        }
+
+        .role {
+            font-size: 1rem;
+            color: var(--accent-color);
+            font-weight: 500;
+            margin-bottom: 10px;
+            display: inline-block;
+            background: #eef2f5;
+            padding: 2px 10px;
+            border-radius: 4px;
+        }
+        
+        .role-desc {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .project-list {
+            list-style: none;
+        }
+
+        .project-list li {
+            position: relative;
+            padding-left: 15px;
+            margin-bottom: 12px;
+            color: #444;
+            font-size: 0.95rem;
+        }
+
+        .project-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--accent-color);
+        }
+
+        .project-title {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .project-desc {
+            display: block;
+            font-size: 0.9rem;
+            color: #666;
+            padding-left: 0;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background: var(--white);
+            border: 1px solid #ccc;
+            color: var(--tag-text);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Simple List (Awards, Certs) */
+        .info-list {
+            list-style: none;
+        }
+
+        .info-list li {
+            margin-bottom: 8px;
+            padding-left: 15px;
+            position: relative;
+            color: #444;
+        }
+
+        .info-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #888;
+        }
+        
+        .link-text a {
+            color: #0066cc;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+        
+        .link-text a:hover {
+            border-bottom-color: #0066cc;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                margin: 0;
+                padding: 30px 20px;
+                width: 100%;
+                border-radius: 0;
+                box-shadow: none;
+            }
+
+            header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding-bottom: 20px;
+            }
+
+            .header-top {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-download {
+                margin-top: 15px; /* 모바일에서는 아래로 이동 */
+            }
+
+            .profile-img {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            
+            .contact-info p {
+                justify-content: center;
+            }
+
+            .item {
+                flex-direction: column;
+            }
+
+            .date-col {
+                margin-bottom: 8px;
+                color: var(--accent-color);
+                font-size: 0.9rem;
+                flex-basis: auto;
+            }
+            
+            section h2 {
+                font-size: 1.3rem;
+            }
+        }
+        /* --- 인쇄 및 PDF 저장용 설정 --- */
+        @media print {
+        /* 인쇄 시 불필요한 요소 숨김 (PDF 다운로드 버튼 등) */
+        .btn-download {
+            display: none !important;
+        }
+
+        /* 종이 여백 및 배경 설정 */
+        body {
+            background-color: #fff;
+            -webkit-print-color-adjust: exact; /* 배경색 강제 출력 (Chrome/Edge) */
+            print-color-adjust: exact;
+        }
+
+        .container {
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            padding: 0;
+            box-shadow: none; /* 그림자 제거 */
+            border: none;
+        }
+
+        /* 페이지 넘김 시 항목이 잘리지 않도록 설정 */
+        .item, section, .summary {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        /* 링크의 밑줄 제거 */
+        a {
+            text-decoration: none;
+            color: #000;
+        }
+    }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <img src="https://img1.daumcdn.net/thumb/C428x428/?scode=mtistory2&fname=https%3A%2F%2Ftistory1.daumcdn.net%2Ftistory%2F2885502%2Fattach%2F80df2f2fa13f4751ba1d490e066aec96" alt="김남근 프로필 사진" class="profile-img">
+            <div class="header-info">
+                <div class="header-top">
+                    <h1>김남근</h1>
+                    <a href="main.pdf" download class="btn-download">
+                        <i class="fa-solid fa-file-pdf"></i> 최신 이력서 PDF 다운로드
+                    </a>
+                </div>
+                <div class="contact-info">
+                    <p><i class="fa-solid fa-user"></i> 1990년생 (남성)</p>
+                    <p><i class="fa-solid fa-phone"></i> 010-6350-5557</p>
+                    <p><i class="fa-solid fa-envelope"></i> jnk@shinsung.co.kr</p>
+                    <p class="link-text"><i class="fa-solid fa-link"></i> <a href="https://ngkim.tistory.com/pages/About-Me" target="_blank">ngkim.tistory.com/pages/About-Me</a></p>
+                </div>
+            </div>
+        </header>
+
+        <div class="summary">
+            <h2>[Industry 4.0 Smart Factory 구축]</h2>
+            <ul class="summary-list">
+                <li>제조IT 개발 및 운영</li>
+                <li>시스템 인프라 및 통신구조 이해</li>
+                <li>원가절감 컨설팅 및 시스템 고도화 전문</li>
+            </ul>
+        </div>
+
+        <section>
+            <h2>경력 <span>총 12년</span></h2>
+
+            <div class="item">
+                <div class="date-col">
+                    2016.10 ~ 재직 중
+                    <span class="date-duration">9년 3개월</span>
+                </div>
+                <div class="content-col">
+                    <div class="company-name">(주)신성이넥스</div>
+                    <div class="role">과장 / IT사업부</div>
+                    <p class="role-desc">(주)신성이엔지 입사 후 IT그룹 관계사전환</p>
+                    <ul class="project-list">
+                        <li>
+                            <span class="project-title">1) 미라콤 MES Smart Factory 구축</span>
+                            <span class="project-desc">- 개발 및 운영 포지션 (1명, 5년간 자체개발 유지보수 진행)</span>
+                        </li>
+                        <li>
+                            <span class="project-title">2) 태양광 모니터링 시스템 개발 운영</span>
+                            <span class="project-desc">- PV 태양광 발전 및 ESS Battery 충/방전 시스템 연계 및 원가 가시화</span>
+                        </li>
+                        <li>
+                            <span class="project-title">3) (정부과제) ICT융합 스마트공장 보급확산 지원사업</span>
+                            <span class="project-desc">- ERP I/F 트리거 방식으로 생산 정보 추가 연계하여 MES 고도화</span>
+                        </li>
+                        <li>
+                            <span class="project-title">4) (정부과제) 상생IT 협업시스템 구축</span>
+                            <span class="project-desc">- ERP/SCM 파트너서비스 구축, 고도화</span>
+                        </li>
+                        <li>
+                            <span class="project-title">5) (정부과제) 클린에너지 기반 대표 스마트공장 구축</span>
+                            <span class="project-desc">- APS/PLM/CPS/BIGDATA/EPOS 5개 솔루션 추가 구축 및 MES 연계형 Smart Factory 구축</span>
+                        </li>
+                        <li>
+                            <span class="project-title">6) (정부과제) 생산현장 디지털화사업</span>
+                            <span class="project-desc">- MES 자재관리 모듈 추가 구축, 고도화</span>
+                        </li>
+                        <li>
+                            <span class="project-title">7) (정부과제) K-스마트등대공장</span>
+                            <span class="project-desc">- Digital Transformation, AI 적용</span>
+                        </li>
+                        <li>
+                            <span class="project-title">8) 차세대 ERP 구축 프로젝트 TF</span>
+                            <span class="project-desc">- SAP 도입에 따른 MES 프로세스 개편</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="date-col">
+                    2014.05 ~ 2016.06
+                    <span class="date-duration">2년 2개월</span>
+                </div>
+                <div class="content-col">
+                    <div class="company-name">한양디지텍(주)</div>
+                    <div class="role">연구원 / MES, ERP, Groupware개발</div>
+                    <p class="role-desc">IT S/W 개발팀 - 기술연구소</p>
+                    <ul class="project-list">
+                        <li>
+                            <span class="project-title">1) 바른전자 MES 신규 구축 프로젝트</span>
+                            <span class="project-desc">- C#.NET, DevExpress 14.1, mssql 2012 (8개월/개발)</span>
+                        </li>
+                        <li>
+                            <span class="project-title">2) 사내 자재소요량계획(MRP) 구축</span>
+                            <span class="project-desc">- ASP.NET, mssql 2012 (2개월/개발)</span>
+                        </li>
+                        <li>
+                            <span class="project-title">3) 중국법인 치공구류관리 웹 구축</span>
+                            <span class="project-desc">- dHtmlx, CSS3, Javascript, JQuery, ASP, mssql 2014 (2개월/현지개발)</span>
+                        </li>
+                        <li>
+                            <span class="project-title">4) 삼성전자 중국법인(SESS) 반도체라인 견학</span>
+                            <span class="project-desc">- DDR3, SSD 자동화 라인 벤치마킹</span>
+                        </li>
+                        <li>
+                            <span class="project-title">5) 사내 반응형웹 홈페이지 구축</span>
+                            <span class="project-desc">- Wordpress 4.3, PHP, CSS3, mysql 5</span>
+                        </li>
+                        <li>
+                            <span class="project-title">6) 더존ERP 신규도입 지원</span>
+                            <span class="project-desc">- ERP 신한은행 법인카드 내역 I/F 및 SP 개발</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="date-col">
+                    2013.07 ~ 2013.08
+                    <span class="date-duration">2개월</span>
+                </div>
+                <div class="content-col">
+                    <div class="company-name">(주)다우기술</div>
+                    <div class="role">인턴 / 공공SI본부</div>
+                    <ul class="project-list">
+                        <li>
+                            <span class="project-title">1) 웹 게시판 구현</span>
+                            <span class="project-desc">- Java Spring 3.0, iBatis, JSP, JQuery 교육 및 실습</span>
+                        </li>
+                        <li>
+                            <span class="project-title">2) 사내 인원관리시스템 기능 개선</span>
+                            <span class="project-desc">- dHtmlx, Ajax, Oracle 10g 쿼리 개선</span>
+                        </li>
+                        <li>
+                            <span class="project-title">3) 공공 SI 교육</span>
+                            <span class="project-desc">- 전자정부프레임워크 교육, 사업계획서 작성, 매뉴얼 작성법 등</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>학력</h2>
+            <div class="item">
+                <div class="date-col">2020 ~ 2022</div>
+                <div class="content-col">
+                    <div class="company-name">성균관대학교(수원)</div>
+                    <div class="role">석사 / 산업공학</div>
+                    <ul class="project-list">
+                        <li>
+                            <span class="project-title">작업자 안전예방을 위한 AI기반 작업자 디지털 트윈 시스템 개발</span>
+                            <span class="project-desc">- Human Activity Recognition 관련 연구 / 한국 CDE학회 연구발표(ICC JEJU, 2020)</span>
+                        </li>
+                        <li style="margin-top:10px;">
+                            <span class="project-title">[석사학위 논문] PSO 알고리즘을 이용한 PV-ESS 운용 최적화에 관한 연구 (2022.02)</span>
+                            <span class="project-desc">- 현실 문제 정의에 대한 전기요금 최적화</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="item">
+                <div class="date-col">2008 ~ 2014</div>
+                <div class="content-col">
+                    <div class="company-name">한신대학교</div>
+                    <div class="role">학사 / 정보통신학</div>
+                    <ul class="project-list">
+                        <li>Android 기반 GPS 활용 미아찾기 애플리케이션</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>전문 분야 및 스킬</h2>
+            <div class="skills-grid">
+                <span class="skill-tag">Oracle</span>
+                <span class="skill-tag">DBA</span>
+                <span class="skill-tag">MES</span>
+                <span class="skill-tag">PM</span>
+                <span class="skill-tag">데이터마이닝</span>
+                <span class="skill-tag">인공지능(AI)</span>
+                <span class="skill-tag">머신러닝</span>
+            </div>
+        </section>
+        
+        <section>
+            <h2>외국어</h2>
+            <ul class="info-list">
+                <li><strong>일본어:</strong> 원어민 수준</li>
+                <li><strong>영어:</strong> 업무상 소통 가능</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>수상 및 기타이력</h2>
+            <ul class="info-list">
+                <li>제 1회 K-Hackathon 앱 개발 예선 수료</li>
+                <li>Subic Language Center 교육과정 이수, University of the Philippines</li>
+            </ul>
+        </section>
+        
+        <section>
+            <h2>자격증</h2>
+            <ul class="info-list" style="display:flex; flex-wrap:wrap; gap:0 30px;">
+                <li>정보처리기사</li>
+                <li>정보처리산업기사</li>
+                <li>워드프로세서 1급</li>
+                <li>JLPT N3</li>
+                <li>HSK 1급</li>
+                <li>빅데이터분석기사</li>
+                <li>SQLD (SQL개발자)</li>
+            </ul>
+        </section>
+
+    </div>
+</body>
+</html>
