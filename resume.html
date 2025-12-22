@@ -221,7 +221,7 @@
             font-size: 1rem;
             color: var(--accent-color);
             font-weight: 500;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
             display: inline-block;
             background: #eef2f5;
             padding: 2px 10px;
@@ -232,6 +232,13 @@
             font-size: 0.9rem;
             color: #666;
             margin-bottom: 15px;
+        }
+
+        .gpa-text {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 12px;
+            font-weight: 400;
         }
 
         .project-list {
@@ -439,12 +446,12 @@
         </div>
 
         <section>
-            <h2>경력 <span>총 12년</span></h2>
+            <h2>경력 <span id="total-career">계산 중...</span></h2>
 
             <div class="item">
                 <div class="date-col">
                     2016.10 ~ 재직 중
-                    <span class="date-duration">9년 3개월</span>
+                    <span class="date-duration calc-duration" data-start="2016.10" data-end="current"></span>
                 </div>
                 <div class="content-col">
                     <div class="company-name">(주)신성이넥스</div>
@@ -490,12 +497,12 @@
             <div class="item">
                 <div class="date-col">
                     2014.05 ~ 2016.06
-                    <span class="date-duration">2년 2개월</span>
+                    <span class="date-duration calc-duration" data-start="2014.05" data-end="2016.06"></span>
                 </div>
                 <div class="content-col">
                     <div class="company-name">한양디지텍(주)</div>
-                    <div class="role">연구원 / MES, ERP, Groupware개발</div>
-                    <p class="role-desc">IT S/W 개발팀 - 기술연구소</p>
+                    <div class="role">연구원 / IT S/W 개발팀 - 기술연구소</div>
+                    <p class="role-desc">MES, ERP, Groupware개발</p>
                     <ul class="project-list">
                         <li>
                             <span class="project-title">1) 바른전자 MES 신규 구축 프로젝트</span>
@@ -528,7 +535,7 @@
             <div class="item">
                 <div class="date-col">
                     2013.07 ~ 2013.08
-                    <span class="date-duration">2개월</span>
+                    <span class="date-duration calc-duration" data-start="2013.07" data-end="2013.08"></span>
                 </div>
                 <div class="content-col">
                     <div class="company-name">(주)다우기술</div>
@@ -558,6 +565,7 @@
                 <div class="content-col">
                     <div class="company-name">성균관대학교(수원)</div>
                     <div class="role">석사 / 산업공학</div>
+                    <p class="gpa-text">졸업평점: <strong>4.33</strong> / 4.5</p>
                     <ul class="project-list">
                         <li>
                             <span class="project-title">작업자 안전예방을 위한 AI기반 작업자 디지털 트윈 시스템 개발</span>
@@ -575,6 +583,7 @@
                 <div class="content-col">
                     <div class="company-name">한신대학교</div>
                     <div class="role">학사 / 정보통신학</div>
+                    <p class="gpa-text">졸업평점: <strong>3.98</strong> / 4.5</p>
                     <ul class="project-list">
                         <li>Android 기반 GPS 활용 미아찾기 애플리케이션</li>
                     </ul>
@@ -623,7 +632,58 @@
                 <li>SQLD (SQL개발자)</li>
             </ul>
         </section>
-
     </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.calc-duration');
+            let totalMonthsAll = 0;
+
+            elements.forEach(el => {
+                const startStr = el.getAttribute('data-start'); // "YYYY.MM"
+                const endStr = el.getAttribute('data-end');     // "YYYY.MM" or "current"
+
+                const startDate = parseDate(startStr);
+                const endDate = endStr === 'current' ? new Date() : parseDate(endStr);
+
+                // 개월 수 차이 계산 (종료월 포함)
+                let months = (endDate.getFullYear() - startDate.getFullYear()) * 12;
+                months -= startDate.getMonth();
+                months += endDate.getMonth();
+                months += 1; // inclusive (시작월~종료월 모두 포함)
+
+                if (months < 0) months = 0;
+                totalMonthsAll += months;
+
+                el.textContent = formatDuration(months);
+            });
+
+            // 총 경력 업데이트
+            const totalEl = document.getElementById('total-career');
+            if(totalEl) {
+                totalEl.textContent = '총 ' + formatDuration(totalMonthsAll);
+            }
+        });
+
+        function parseDate(str) {
+            // "2016.10" -> Date object
+            const parts = str.split('.');
+            const year = parseInt(parts[0], 10);
+            const month = parseInt(parts[1], 10) - 1; // JS months are 0-11
+            return new Date(year, month, 1);
+        }
+
+        function formatDuration(totalMonths) {
+            const years = Math.floor(totalMonths / 12);
+            const months = totalMonths % 12;
+
+            let result = '';
+            if (years > 0) result += years + '년 ';
+            if (months > 0) result += months + '개월';
+            if (result === '') result = '1개월 미만';
+            
+            return result.trim();
+        }
+    </script>
 </body>
 </html>
