@@ -1,21 +1,92 @@
-\documentclass[a4paper,10pt]{article}
-\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\documentclass[a4paper, 11pt]{article}
 
-\title{\textbf{Developer Resume}}
-\author{Namgeun Kim}
-\date{\today}
+% --- 패키지 설정 ---
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2.0cm, right=2.0cm]{geometry}
+\usepackage{fontspec}
+\usepackage{setspace} % 줄 간격 설정을 위해
+\usepackage{titlesec} % 섹션 스타일 설정을 위해
+\usepackage[korean, provide=*]{babel}
+
+% --- 폰트 설정 (시스템 기본 폰트 사용) ---
+\babelprovide[import, onchar=ids fonts]{korean}
+\babelprovide[import, onchar=ids fonts]{english}
+
+% 기본 폰트 설정 (Noto Sans)
+\babelfont{rm}{Noto Sans}
+\babelfont[korean]{rm}{Noto Sans CJK KR}
+
+% --- 스타일 설정 ---
+% 줄 간격 1.6배 (가독성 확보)
+\setstretch{1.6}
+
+% 섹션 스타일: 굵게, 크기 조정, 번호 없이
+\titleformat{\section}
+  {\large\bfseries} % 포맷
+  {}                % 라벨
+  {0pt}             % 라벨과 제목 사이 간격
+  {}                % 코드 실행
+
+% 섹션 간격 조정
+\titlespacing*{\section}{0pt}{20pt}{10pt}
+
+% 문단 들여쓰기 없음
+\setlength{\parindent}{0pt}
+% 문단 사이 간격
+\setlength{\parskip}{1em}
 
 \begin{document}
-\maketitle
 
-\section*{Introduction}
-Hello! I am a System Developer at Shinsung Innex.
-I specialize in server automation and backend optimization.
+% --- 헤더 (제목 및 지원자 정보) ---
+\begin{center}
+    {\huge \textbf{자 기 소 개 서}} \\[1.5em]
+    % 필요 시 아래 정보를 수정하세요
+    {\large \textbf{지원 기업:} 현대오토에버 \quad | \quad \textbf{지원 직무:} MES 플랫폼 구축 및 운영 (철강) \quad | \quad \textbf{성명:} 김 남 근}
+\end{center}
 
-\section*{Experience}
-\begin{itemize}
-    \item \textbf{Shinsung Innex} (2018 - Present) \\
-    Smart Factory System Development \& Operation
-\end{itemize}
+\vspace{0.5cm}
+\hrule height 1.5pt % 굵은 가로줄
+\vspace{1cm}
+
+% --- 1. 지원동기 ---
+\section{1. 지원동기}
+\textbf{[대한민국 대표 스마트공장에서 체득한 9년의 노하우, 현대오토에버와 함께하다]}
+
+현대자동차그룹이 추구하는 소프트웨어 중심 자동차(SDV) 전략에 공감하며, 현대오토에버에서 스마트 팩토리 전문가로써 SDF(Software Defined Factory) 비전을 실현하고자 지원했습니다. 저는 지난 9년간 산업통상자원부가 선정한 대표 스마트공장에서 근무하며, 단순한 시스템 운영을 넘어 공장 전체의 흐름을 읽는 눈을 길렀습니다.
+
+이 기간 동안 MES(생산관리시스템) 구축 및 운영은 물론, 제조 현장의 디지털 전환 전 과정을 온몸으로 경험했습니다. 스마트 팩토리란 단순히 특정 솔루션 하나를 도입하는 것이 아니라, 현장의 데이터와 공정 프로세스가 유기적으로 연결되어야 함을 누구보다 잘 알고 있습니다. 저의 이러한 `통합적 실무 경험'을 바탕으로 현대오토에버의 플랫폼이 고객사의 제조 혁신을 이끄는 핵심 키(Key)가 되도록 기여하고 싶습니다.
+
+% --- 2. 직무 핵심 역량 ---
+\section{2. 직무 핵심 역량 (경험 및 성과)}
+\textbf{[최적화의 전문가: 문제 정의부터 로스 제로화를 향한 여정]}
+
+저의 핵심 역량은 데이터를 기반으로 한 `공정 최적화'입니다. 스마트 팩토리의 본질은 산재한 데이터를 통해 보이지 않는 비효율을 찾아내는 데 있다고 생각합니다. 저는 항상 문제를 명확히 정의하는 것에서 시작하여, 제조 현장에서 발생하는 손실 지점을 집요하게 분석하고 이를 최소화(Minimize)하는 과정을 주도해 왔습니다.
+
+일례로, 산업 현장의 에너지 효율화를 위해 파이썬을 활용하여 1년 치의 발전량 및 수전량 데이터를 분석한 경험이 있습니다. 전력 데이터의 모니터링을 넘어, 비용 함수(Cost Function) 핵심 문제로 재해석하여 다양한 최적화 기법을 연구하고 도입하였습니다. 통계적 데이터 분석을 통해 문제를 접근한 결과, 연간 전기요금의 5.6\% 낭비되고 있던 숨겨진 이익을 발견하기도 했습니다.
+
+이처럼 저는 MES에 국한되지 않고 스마트 팩토리 전체 관점에서 비효율을 걷어내고 이익을 창출하는 실질적인 해결책을 제시할 수 있습니다.
+
+% --- 3. 성격의 장단점 ---
+\section{3. 성격의 장단점}
+\textbf{[길이 없으면 만들어가는 해결사]}
+
+``길이 없으면 만들어서라도 간다''는 것이 저의 업무 신조이자 가장 큰 장점입니다. 과거 복잡한 시스템 오류로 프로젝트가 난항을 겪었을 때, 기존 시스템에 영향을 주지 않으면서도 운영자가 편리하게 사용할 수 있는 우회 로직을 창의적으로 고안해 문제를 해결한 경험이 있습니다. 단순히 당장의 오류를 잡는 것에 그치지 않고, 기술 부채(Technical Debt)가 쌓이지 않도록 구조적인 안정성까지 고려하는 것이 저의 문제 해결 방식입니다.
+
+반면, 업무를 완벽하게 처리하려는 꼼꼼함 때문에 간혹 일정이 지연되는 경우가 있습니다. 디테일에 집중하다 보면 `로컬라이징된 사고'에 갇힐 수 있음을 경계하고 있습니다. 이를 보완하기 위해 저는 주기적으로 업무에서 한 발짝 물러나 전체 숲을 조망하려 노력합니다. 시스템 전체에 대한 '통합적 사고'로 흐름을 다시 한번 점검하며 속도와 완성도의 균형을 맞추는 습관을 기르고 있습니다.
+
+% --- 4. 입사 후 포부 ---
+\section{4. 입사 후 포부}
+\textbf{[철강 산업의 DX 과정을 완성하는 '현장 밀착형' MES 전문가]}
+
+철강공정시스템팀의 일원으로서 현장의 목소리와 데이터를 결합하여 고객이 체감할 수 있는 효율성을 증명해 보이겠습니다. 다음 두 가지 목표를 통해 현대제철의 스마트 제조 혁신에 기여하겠습니다. 
+
+첫째, 기존의 모놀리식 환경과는 다른 MSA 기반의 유연한 시스템 운영 환경에 빠르게 적응하겠습니다. 지난 12년간 MES 현장에서 체득한 Java 및 Oracle SQL 최적화 역량을 바탕으로, 복잡한 철강 공정의 데이터 흐름을 빈틈없이 파악하겠습니다. 이를 통해 잠재적인 장애 요소를 먼저 찾아내고 해결함으로써, 현장의 생산성이 멈추지 않도록 지키는 '믿을 수 있는 엔지니어'가 되겠습니다.
+
+둘째, 중장기적으로는 AI 기술을 접목하여 '지능형 제철소' 구현을 주도하겠습니다. 단순한 자동화를 넘어, 축적된 공정 데이터를 기반으로 AI 모델을 활용해 품질 불량을 예측하고 설비 고장을 예방하는 예지보전 시스템 고도화에 앞장서겠습니다. 과거 스마트공장 대표 시범사업에서 다양한 데이터를 융합해 최적의 의사결정을 지원했던 경험을 살려, 현대오토에버가 철강 IT 분야의 글로벌 표준을 제시하는 데 핵심적인 역할을 수행하겠습니다. 팀 내 기술 리뷰와 세미나에도 적극 참여하여 동료들과 함께 성장하고, 끊임없이 기술을 공유하는 조직 문화를 만드는 데에도 일조하겠습니다.
+
+\vspace{2cm}
+
+\begin{center}
+    위의 내용은 사실과 다름이 없음을 확인합니다.
+\end{center}
 
 \end{document}
