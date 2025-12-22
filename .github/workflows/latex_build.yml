@@ -20,6 +20,7 @@ jobs:
         uses: xu-cheng/latex-action@v3
         with:
           root_file: main.tex  # 파일명이 main.tex가 아니면 수정 필요
+          compiler: xelatex
 
       - name: PDF 파일 저장소에 반영 (Commit & Push)
         run: |
