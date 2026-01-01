@@ -67,6 +67,7 @@
 
         .header-info {
             flex-grow: 1;
+            position: relative;
         }
 
         .header-top {
@@ -102,6 +103,13 @@
             background-color: var(--accent-color);
             color: var(--white);
             border-color: var(--accent-color);
+        }
+
+        /* PC 화면: 버튼을 우측 상단에 배치 */
+        .btn-download-wrapper {
+            position: absolute;
+            top: 0;
+            right: 0;
         }
 
         .contact-info p {
@@ -357,6 +365,9 @@
             }
 
             .btn-download-wrapper {
+                position: relative;
+                top: auto;
+                right: auto;
                 text-align: center;
                 margin-top: 20px;
             }
