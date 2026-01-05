@@ -1,0 +1,35 @@
+{
+  "name": "langchain-agent-api",
+  "version": "1.0.0",
+  "description": "Node.js LangChain Agent API Server for Ext JS Frontend",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "langchain",
+    "agent",
+    "api",
+    "express",
+    "extjs"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "@langchain/core": "^0.1.0",
+    "@langchain/openai": "^0.0.14",
+    "@langchain/community": "^0.0.20",
+    "langchain": "^0.1.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
+
