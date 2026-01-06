@@ -4,7 +4,7 @@ dotenv.config();
 
 export const config = {
     server: {
-        port: process.env.PORT || 3000,
+        port: process.env.PORT || 4000,
         env: process.env.NODE_ENV || 'development'
     },
     openai: {

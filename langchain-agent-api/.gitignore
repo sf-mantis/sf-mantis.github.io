@@ -6,4 +6,9 @@ dist/
 build/
 .vscode/
 .idea/
+documents/uploads/
+documents/*.pdf
+documents/*.docx
+documents/*.txt
+documents/*.md
 

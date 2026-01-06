@@ -3,19 +3,21 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { agentRouter } from './routes/agent.js';
 import { healthRouter } from './routes/health.js';
+import { documentsRouter } from './routes/documents.js';
+import { ragRouter } from './routes/rag.js';
 
 // 환경 변수 로드
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 // 미들웨어 설정
 app.use(cors({
     origin: process.env.CORS_ORIGIN || '*',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'data-tracking', 'form-name']
 }));
 
 app.use(express.json());
@@ -30,6 +32,8 @@ app.use((req, res, next) => {
 // 라우트 설정
 app.use('/api/health', healthRouter);
 app.use('/api/agent', agentRouter);
+app.use('/api/documents', documentsRouter);
+app.use('/api/rag', ragRouter);
 
 // 루트 엔드포인트
 app.get('/', (req, res) => {
@@ -38,7 +42,9 @@ app.get('/', (req, res) => {
         version: '1.0.0',
         endpoints: {
             health: '/api/health',
-            agent: '/api/agent'
+            agent: '/api/agent',
+            documents: '/api/documents',
+            rag: '/api/rag'
         }
     });
 });

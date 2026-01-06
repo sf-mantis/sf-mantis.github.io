@@ -10,16 +10,17 @@
 Ext.define('MyApp.service.AgentService', {
     singleton: true,
     
-    apiUrl: 'http://localhost:3000/api/agent',
+    apiUrl: 'http://localhost:4000/api/agent',
     
     /**
-     * Agent에 메시지를 전송하고 응답을 받습니다
+     * Agent에 메시지를 전송하고 응답을 받습니다 (메모리 지원)
      * @param {String} message - 사용자 메시지
+     * @param {String} sessionId - 세션 ID (선택, 메모리 사용 시 필수)
      * @param {Object} context - 추가 컨텍스트 (선택)
      * @param {Object} options - 추가 옵션 (선택)
      * @returns {Promise} Agent 응답
      */
-    invoke: function(message, context, options) {
+    invoke: function(message, sessionId, context, options) {
         return new Promise(function(resolve, reject) {
             Ext.Ajax.request({
                 url: this.apiUrl + '/invoke',
@@ -29,6 +30,7 @@ Ext.define('MyApp.service.AgentService', {
                 },
                 jsonData: {
                     message: message,
+                    sessionId: sessionId || null,
                     context: context || {},
                     options: options || {}
                 },
@@ -93,7 +95,7 @@ Ext.define('MyApp.service.AgentService', {
     healthCheck: function() {
         return new Promise(function(resolve, reject) {
             Ext.Ajax.request({
-                url: 'http://localhost:3000/api/health',
+                url: 'http://localhost:4000/api/health',
                 method: 'GET',
                 success: function(response) {
                     try {
@@ -108,12 +110,72 @@ Ext.define('MyApp.service.AgentService', {
                 }
             });
         });
+    },
+    
+    /**
+     * 세션 메모리 초기화
+     * @param {String} sessionId - 세션 ID
+     * @returns {Promise}
+     */
+    clearSession: function(sessionId) {
+        return new Promise(function(resolve, reject) {
+            Ext.Ajax.request({
+                url: this.apiUrl + '/session/' + sessionId,
+                method: 'DELETE',
+                success: function(response) {
+                    try {
+                        const result = Ext.decode(response.responseText);
+                        if (result.success) {
+                            resolve(result);
+                        } else {
+                            reject(new Error(result.error || 'Unknown error'));
+                        }
+                    } catch (e) {
+                        reject(new Error('Failed to parse response: ' + e.message));
+                    }
+                },
+                failure: function(response) {
+                    reject(new Error('Request failed: ' + response.statusText));
+                },
+                scope: this
+            });
+        });
+    },
+    
+    /**
+     * 세션 대화 기록 조회
+     * @param {String} sessionId - 세션 ID
+     * @returns {Promise}
+     */
+    getSessionHistory: function(sessionId) {
+        return new Promise(function(resolve, reject) {
+            Ext.Ajax.request({
+                url: this.apiUrl + '/session/' + sessionId + '/history',
+                method: 'GET',
+                success: function(response) {
+                    try {
+                        const result = Ext.decode(response.responseText);
+                        if (result.success) {
+                            resolve(result.data);
+                        } else {
+                            reject(new Error(result.error || 'Unknown error'));
+                        }
+                    } catch (e) {
+                        reject(new Error('Failed to parse response: ' + e.message));
+                    }
+                },
+                failure: function(response) {
+                    reject(new Error('Request failed: ' + response.statusText));
+                },
+                scope: this
+            });
+        });
     }
 });
 
 // 사용 예제:
 /*
-// 1. 기본 사용
+// 1. 기본 사용 (메모리 없음)
 MyApp.service.AgentService.invoke('안녕하세요, 도와주세요')
     .then(function(result) {
         console.log('Agent 응답:', result.response);
@@ -122,14 +184,28 @@ MyApp.service.AgentService.invoke('안녕하세요, 도와주세요')
         console.error('에러:', error);
     });
 
-// 2. 컨텍스트와 함께 사용
-MyApp.service.AgentService.invoke(
-    '계산해주세요',
-    { userId: '123', sessionId: 'abc' },
-    { temperature: 0.5 }
-)
+// 2. 메모리와 함께 사용 (세션 ID 필요)
+const sessionId = Ext.id(); // 고유 세션 ID 생성
+MyApp.service.AgentService.invoke('내 이름은 김남근이야', sessionId)
     .then(function(result) {
         console.log('응답:', result.response);
+        // 다음 메시지에서도 이전 대화를 기억함
+        return MyApp.service.AgentService.invoke('내 이름이 뭐였지?', sessionId);
+    })
+    .then(function(result) {
+        console.log('이전 대화를 기억한 응답:', result.response);
+    });
+
+// 3. 세션 대화 기록 조회
+MyApp.service.AgentService.getSessionHistory(sessionId)
+    .then(function(data) {
+        console.log('대화 기록:', data.history);
+    });
+
+// 4. 세션 메모리 초기화
+MyApp.service.AgentService.clearSession(sessionId)
+    .then(function() {
+        console.log('세션 메모리가 초기화되었습니다');
     });
 
 // 3. Ext JS Store와 함께 사용
@@ -140,7 +216,7 @@ Ext.define('MyApp.store.AgentStore', {
     
     proxy: {
         type: 'ajax',
-        url: 'http://localhost:3000/api/agent/invoke',
+        url: 'http://localhost:4000/api/agent/invoke',
         method: 'POST',
         reader: {
             type: 'json',
